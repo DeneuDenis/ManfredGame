@@ -48,7 +48,7 @@ ARCHITECTURE main of cpu is
 	CONSTANT MOV			: STD_LOGIC_VECTOR(5 downto 0) := "110011";		-- MOV RX RY    -- RX <- RY	  	Format: < inst(6) | RX(3) | RY(3) | xx | x0 >
 																								-- MOV RX SP    RX <- SP         Format: < inst(6) | RX(3) | xxx | xx | 01 >
 																								-- MOV SP RX    SP <- RX         Format: < inst(6) | RX(3) | xxx | xx | 11 >
-	CONSTANT ZERO			: STD_LOGIC_VECTOR(5 downto 0) := "110111"      --ZERO          --R0 <- 0, R1 <- 0, R2 <- 0, R3 <- 0, R4 <-0, R5 <- 0, R6 <- 0, R7 <- 0
+	CONSTANT ZERO			: STD_LOGIC_VECTOR(5 downto 0) := "110111";      --ZERO          --R0 <- 0, R1 <- 0, R2 <- 0, R3 <- 0, R4 <-0, R5 <- 0, R6 <- 0, R7 <- 0
 	
 	-- I/O Instructions:
 	CONSTANT OUTCHAR		: STD_LOGIC_VECTOR(5 downto 0) := "110010";		-- OUTCHAR RX RY -- Video[RY] <- Char(RX)		Format: < inst(6) | RX(3) | RY(3) | xxxx >
@@ -360,18 +360,17 @@ begin
 --========================================================================
 -- ZERO		ZERA TODOS OS REGISTRADORES
 --========================================================================
-			IF(IR(15 DOWNTO 10) = MOV) THEN
+			IF(IR(15 DOWNTO 10) = ZERO) THEN
 			
-				R0 := '0000000000000000';
-				R1 := '0000000000000000';
-				R2 := '0000000000000000';
-				R3 := '0000000000000000';
-				R4 := '0000000000000000';
-				R5 := '0000000000000000';
-				R6 := '0000000000000000';
-				R7 := '0000000000000000';
+				Reg(0) := "0000000000000000";
+				Reg(1) := "0000000000000000";
+				Reg(2) := "0000000000000000";
+				Reg(3) := "0000000000000000";
+				Reg(4) := "0000000000000000";
+				Reg(5) := "0000000000000000";
+				Reg(6) := "0000000000000000";
+				Reg(7) := "0000000000000000";
 				
-				IncPC := '1';
 				state := fetch;
 			END IF;
 --========================================================================
